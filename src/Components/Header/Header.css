@@ -1,0 +1,22 @@
+.Navigation {
+    margin-bottom: 20px;
+}
+
+.Brand {
+    margin-top: -20px;
+}
+
+.Nav {
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: -25px;
+}
+
+.Nav:hover {
+    color: red;
+}
+
+.active {
+    text-shadow: 1px 1px grey;
+    color: wheat
+}
