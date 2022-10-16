@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     orderErr: false,
     totalPrice: 80,
     purchaseable: true,
-    token: null,
+    token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
     userId: null,
     authLoading: false,
     authFailedMsg: null,
@@ -111,7 +111,6 @@ export const reducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 token: action.payload.token,
-                userId: action.payload.userId,
             }
 
         case actionTypes.AUTH_LOGOUT:

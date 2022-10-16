@@ -4,8 +4,9 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
 import axios from "axios";
 import Spinner from "../../Spinner/Spinner.js";
-import { NavLink } from "react-router-dom";
-import { resetIngredients } from "../../../redux/actionCreators"
+import { Link } from "react-router-dom";
+import { resetIngredients } from "../../../redux/actionCreators";
+import { API } from "../../../config.js";
 
 const mapStateToProps = state => {
     return {
@@ -62,12 +63,17 @@ class Checkout extends Component {
             ingredients: this.props.ingredients,
             customer: this.state.values,
             totalPrice: this.props.totalPrice,
-            orderTime: new Date(),
+            // orderTime: new Date(),
             userId: this.props.userId,
         }
-        axios.post('https://burger-builder-c88cc-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json?auth=' + this.props.token, order)
+        axios.post(`${API}/order`, order, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${this.props.token}`
+            }
+        })
             .then(response => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     this.setState({
                         isLoading: false,
                         isModalOpen: true,
@@ -101,14 +107,16 @@ class Checkout extends Component {
                         value={this.state.values.deliveryAddress}
                         onChange={this.inputChangeHandler}
                         className="from-control"
-                        placeholder="delivery address" />
+                        placeholder="delivery address"
+                        required />
                     <br />
                     <input type="text"
                         name="phone"
                         value={this.state.values.phone}
                         className="form-control"
                         onChange={this.inputChangeHandler}
-                        placeholder="phone no." />
+                        placeholder="phone no."
+                        required />
                     <br />
                     <select name="paymentType"
                         value={this.state.values.paymentType}
@@ -133,7 +141,7 @@ class Checkout extends Component {
                         <p>{this.state.modalMessage}</p>
                     </ModalBody>
                     <ModalFooter>
-                        <button><NavLink to="/">Return To Homepage</NavLink></button>
+                        <Link to="/"><Button color="success" style={{ backgroundColor: "#d70864", color: "white" }}>Return To Homepage</Button></Link>
                     </ModalFooter>
 
                 </Modal>

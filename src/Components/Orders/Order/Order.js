@@ -14,7 +14,7 @@ const Order = props => {
     return (
         <div style={{ boxShadow: "3px 3px grey", padding: "10px", margin: "10px", borderRadius: "8px" }}>
             <h6>Customer Address : {props.order.customer.deliveryAddress}</h6>
-            <p>Order Id : {props.order.id} </p>
+            <p>Order Id : {props.order._id} </p>
             <p>Payment Type : {props.order.customer.paymentType}</p>
             <p>Contact : {props.order.customer.phone}</p>
             <hr />{ingredientSummary}<hr />

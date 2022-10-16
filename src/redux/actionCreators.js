@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
+import { API } from "../config";
 
 export const addIngredient = igtype => {
     return {
@@ -39,9 +40,13 @@ export const orderLoadFailed = () => {
     }
 }
 
-export const fetchOrders = (token, userId) => dispatch => {
-    const queryParams = '&orderBy="userId"&equalTo="' + userId + '"';
-    axios.get("https://burger-builder-c88cc-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json?auth=" + token + queryParams)
+export const fetchOrders = (token) => dispatch => {
+    axios.get(`${API}/order`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
         .then(response => {
             dispatch(loadOrders(response.data));
         })

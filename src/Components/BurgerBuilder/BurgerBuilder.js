@@ -4,8 +4,8 @@ import Controls from "./Controls/Controls";
 import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from "reactstrap";
 import Summary from "./Summary/Summary";
 import { connect } from "react-redux";
-import { addIngredient, removeIngredient, updatePurchaseAble } from "../../redux/actionCreators"
-
+import { addIngredient, removeIngredient, updatePurchaseAble } from "../../redux/actionCreators";
+import { Link } from "react-router-dom";
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
@@ -71,7 +71,7 @@ class BurgerBuilder extends Component {
                         <Summary ingredients={this.props.ingredients} />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.handleCheckOut} style={{ backgroundColor: "#d70864", color: "white" }}>Continue to Checkout</Button>
+                        <Link to="/checkout"><Button color="success" style={{ backgroundColor: "#d70864", color: "white" }}>Continue to Checkout</Button></Link>
                         <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
